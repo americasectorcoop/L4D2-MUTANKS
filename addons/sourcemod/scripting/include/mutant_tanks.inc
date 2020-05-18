@@ -20,14 +20,14 @@
 #define MT_VERSION "8.67"
 #define MT_URL "https://forums.alliedmods.net/showthread.php?t=302140"
 
-#define MT_TAG "[MT]"
-#define MT_TAG2 "\x04[MT]\x01"
-#define MT_TAG3 "\x04[MT]\x03"
-#define MT_TAG4 "\x04[MT]\x05"
+#define MT_TAG "[GOD]"
+#define MT_TAG2 "\x04[GOD]\x01"
+#define MT_TAG3 "\x04[GOD]\x03"
+#define MT_TAG4 "\x04[GOD]\x05"
 
 #define MT_MAXTYPES 1000
-#define MT_MAXHEALTH 65535
-#define MT_MAX_HEALTH_REDUCTION -65535
+#define MT_MAXHEALTH 400000
+#define MT_MAX_HEALTH_REDUCTION -400000
 
 #define MT_MAIN_KEY IN_USE
 #define MT_SUB_KEY IN_RELOAD

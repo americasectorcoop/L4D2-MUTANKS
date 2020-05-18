@@ -5756,69 +5756,11 @@ public Action tTimerTankHealthUpdate(Handle timer)
 							g_esTank[g_esPlayer[iTarget].g_iTankType].g_sTankName = "Tank";
 						}
 
-						int iHealth = (g_esPlayer[iTarget].g_bDying) ? 0 : GetClientHealth(iTarget),
-							iDisplayHealth = (g_esTank[g_esPlayer[iTarget].g_iTankType].g_iDisplayHealth2 > 0) ? g_esTank[g_esPlayer[iTarget].g_iTankType].g_iDisplayHealth2 : g_esGeneral.g_iDisplayHealth,
-							iDisplayHealthType = (g_esTank[g_esPlayer[iTarget].g_iTankType].g_iDisplayHealthType2 > 0) ? g_esTank[g_esPlayer[iTarget].g_iTankType].g_iDisplayHealthType2 : g_esGeneral.g_iDisplayHealthType;
-						iDisplayHealth = (bIsTank(iTarget, MT_CHECK_FAKECLIENT) && g_esPlayer[iTarget].g_iDisplayHealth3 > 0) ? g_esPlayer[iTarget].g_iDisplayHealth3 : iDisplayHealth;
-						iDisplayHealthType = (bIsTank(iTarget, MT_CHECK_FAKECLIENT) && g_esPlayer[iTarget].g_iDisplayHealthType3 > 0) ? g_esPlayer[iTarget].g_iDisplayHealthType3 : iDisplayHealthType;
-
+						int iHealth = (g_esPlayer[iTarget].g_bDying) ? 0 : GetClientHealth(iTarget);
 						float flPercentage = (float(iHealth) / float(g_esPlayer[iTarget].g_iTankHealth)) * 100;
-
-						char sHealthBar[51], sHealthChars[4], sSet[2][2], sTankName[33];
-						sHealthChars = (g_esTank[g_esPlayer[iTarget].g_iTankType].g_sHealthCharacters2[0] != '\0') ? g_esTank[g_esPlayer[iTarget].g_iTankType].g_sHealthCharacters2 : g_esGeneral.g_sHealthCharacters;
-						sHealthChars = (bIsTank(iTarget, MT_CHECK_FAKECLIENT) && g_esPlayer[iTarget].g_sHealthCharacters3[0] != '\0') ? g_esPlayer[iTarget].g_sHealthCharacters3 : sHealthChars;
-						ReplaceString(sHealthChars, sizeof(sHealthChars), " ", "");
-						ExplodeString(sHealthChars, ",", sSet, sizeof(sSet), sizeof(sSet[]));
-
+						char sTankName[33];
 						sTankName = (g_esPlayer[iTarget].g_sTankName2[0] == '\0') ? g_esTank[g_esPlayer[iTarget].g_iTankType].g_sTankName : g_esPlayer[iTarget].g_sTankName2;
-
-						for (int iCount = 0; iCount < (float(iHealth) / float(g_esPlayer[iTarget].g_iTankHealth)) * 50 && iCount < 50; iCount++)
-						{
-							StrCat(sHealthBar, sizeof(sHealthBar), sSet[0]);
-						}
-
-						for (int iCount = 0; iCount < 50; iCount++)
-						{
-							StrCat(sHealthBar, sizeof(sHealthBar), sSet[1]);
-						}
-
-						switch (iDisplayHealthType)
-						{
-							case 1:
-							{
-								switch (iDisplayHealth)
-								{
-									case 1: PrintHintText(iPlayer, "%s", sTankName);
-									case 2: PrintHintText(iPlayer, "%i HP", iHealth);
-									case 3: PrintHintText(iPlayer, "%i/%i HP (%.0f%s)", iHealth, g_esPlayer[iTarget].g_iTankHealth, flPercentage, "%%");
-									case 4: PrintHintText(iPlayer, "HP: |-<%s>-|", sHealthBar);
-									case 5: PrintHintText(iPlayer, "%s (%i HP)", sTankName, iHealth);
-									case 6: PrintHintText(iPlayer, "%s [%i/%i HP (%.0f%s)]", sTankName, iHealth, g_esPlayer[iTarget].g_iTankHealth, flPercentage, "%%");
-									case 7: PrintHintText(iPlayer, "%s\nHP: |-<%s>-|", sTankName, sHealthBar);
-									case 8: PrintHintText(iPlayer, "%i HP\nHP: |-<%s>-|", iHealth, sHealthBar);
-									case 9: PrintHintText(iPlayer, "%i/%i HP (%.0f%s)\nHP: |-<%s>-|", iHealth, g_esPlayer[iTarget].g_iTankHealth, flPercentage, "%%", sHealthBar);
-									case 10: PrintHintText(iPlayer, "%s (%i HP)\nHP: |-<%s>-|", sTankName, iHealth, sHealthBar);
-									case 11: PrintHintText(iPlayer, "%s [%i/%i HP (%.0f%s)]\nHP: |-<%s>-|", sTankName, iHealth, g_esPlayer[iTarget].g_iTankHealth, flPercentage, "%%", sHealthBar);
-								}
-							}
-							case 2:
-							{
-								switch (iDisplayHealth)
-								{
-									case 1: PrintCenterText(iPlayer, "%s", sTankName);
-									case 2: PrintCenterText(iPlayer, "%i HP", iHealth);
-									case 3: PrintCenterText(iPlayer, "%i/%i HP (%.0f%s)", iHealth, g_esPlayer[iTarget].g_iTankHealth, flPercentage, "%%");
-									case 4: PrintCenterText(iPlayer, "HP: |-<%s>-|", sHealthBar);
-									case 5: PrintCenterText(iPlayer, "%s (%i HP)", sTankName, iHealth);
-									case 6: PrintCenterText(iPlayer, "%s [%i/%i HP (%.0f%s)]", sTankName, iHealth, g_esPlayer[iTarget].g_iTankHealth, flPercentage, "%%");
-									case 7: PrintCenterText(iPlayer, "%s\nHP: |-<%s>-|", sTankName, sHealthBar);
-									case 8: PrintCenterText(iPlayer, "%i HP\nHP: |-<%s>-|", iHealth, sHealthBar);
-									case 9: PrintCenterText(iPlayer, "%i/%i HP (%.0f%s)\nHP: |-<%s>-|", iHealth, g_esPlayer[iTarget].g_iTankHealth, flPercentage, "%%", sHealthBar);
-									case 10: PrintCenterText(iPlayer, "%s (%i HP)\nHP: |-<%s>-|", sTankName, iHealth, sHealthBar);
-									case 11: PrintCenterText(iPlayer, "%s [%i/%i HP (%.0f%s)]\nHP: |-<%s>-|", sTankName, iHealth, g_esPlayer[iTarget].g_iTankHealth, flPercentage, "%%", sHealthBar);
-								}
-							}
-						}
+						PrintHintText( iPlayer, "%s\n%i (%.0f%s)", sTankName, iHealth, flPercentage, "%%" );
 					}
 				}
 			}
